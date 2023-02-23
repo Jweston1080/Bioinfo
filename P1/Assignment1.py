@@ -92,7 +92,7 @@ bfr = [timeit.timeit('BetterFrequentWords(lst2, 0)',
 plt2.plot(bf, bfr, 'ob');
 
 #Task 5: Task 5: Report the most frequent k-mers for each k in 3, 6, 9, 12, 15. 
-with open ('/content/drive/MyDrive/BioInfo/P1/sequence.txt') as f:
+with open ('P1/sequence.txt') as f:
   genome=f.read().strip()
   genome=genome[:-33] # Frequent k-mers in the SARS-Cov-2 genome
 print("frequent 3-mers in Covid genome: ", BetterFrequentWords(genome,3)) 
@@ -105,6 +105,8 @@ print("frequent 12-mers in Covid genome: ", BetterFrequentWords(genome,12))
 print("\n\n")
 print("frequent 15-mers in Covid genome: ", BetterFrequentWords(genome,15))
 print("\n\n")
+
+
 #Task 6: Select a few kmers and determine which genes they belong to or whether they are in an intergenic region.
 #so we selected 12, 13 and 15 mers. 
 print("frequent 13-mers in Covid genome: ", BetterFrequentWords(genome,13))
