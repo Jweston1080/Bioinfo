@@ -1,24 +1,27 @@
 ---
 title: "Project 1: Frequent k-mers in the SARS-CoV-2 genome"
 author: "Jason Weston, Raghda Kailany, Calicia Perea"
-due date: "2023-02-23"
+date: "2023-02-23"
+
 output: html_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-Abstract:
-  In this document, we will discuss multiple different questions pertaining to the SARS-CoV-2 genome. Tasks 1 and 2 will 
-  go over the different methods of computationally discovering frequent k-mer patterns. The algorithims of counting these
-  patterns will be implemented through the FrequentWords() and BetterFrequentWords() approaches. Task 3 will allow us to 
-  generate random DNA sequences of various lengths using r-markdown. Task 4 will provide graphs for the runtimes of the
-  algorithims implemented in Task 1 and 2, which will be compared. Task 5 will use our algorithims to report the most
-  frequent k-mers of varrying sizes in the coronavirus 2 genome. Finally, Task 6 will allow us to determine which genes 
-  certain k-mers belong to and whether or not they are in an intergeneic region. 
+# Abstract:
 
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
+In this document, we will discuss multiple different questions pertaining to the SARS-CoV-2 genome. Tasks 1 and 2 will go over the different methods of computationally discovering frequent k-mer patterns. The algorithims of counting these patterns will be implemented through the FrequentWords() and BetterFrequentWords() approaches. Task 3 will allow us to generate random DNA sequences of various lengths. Task 4 will provide graphs for the runtimes of the algorithims implemented in Task 1 and 2, which will be compared. Task 5 will use our algorithims to report the most frequent k-mers of varrying sizes in the coronavirus 2 genome. Finally, Task 6 will allow us to determine which genes certain k-mers belong to and whether or not they are in an intergeneic region.
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+# Introduction:
+
+In this assignment we use the field of bioinformatics to determine different attributes of the SARS-CoV 2 genome. The first half of the assignment uses algorithms to process genome sequences and the second half utilizes those algorithms in order to compute frequent k-mers in the SARS-CoV 2 genome. All code is implemented using python.
+
+# **Methods:**
+
+-   How to compile the code submitted:
+
+    To compile the code provided you first need to download the zip folder which contains a python folder named assignment1.py along with a text document named sequence.txt. If you are running on an IDE such as Visual Studio Code you will need to install matplotlib, pandas, and numpy using pip and then you will be able to compile the code. Alternatively, you can also use the link to the Google colab which will allow you to run the file without having to download any libraries, but will not provide the genome sequences relative to the sequences.txt file required for task 5, that is only available via download.
+
+-   Example on how to run code:
+
+    <https://drive.google.com/drive/folders/1wgVmGhylnQw9NBOBQCg7qjH_aP4rE_34?usp=sharing>
+
+# **Results:**
