@@ -6,11 +6,11 @@ date: "2023-02-23"
 output: html_document
 ---
 
-# Abstract
+# **Abstract**
 
 In this document, we will discuss multiple different questions pertaining to the SARS-CoV-2 genome. Tasks 1 and 2 will go over the different methods of computationally discovering frequent k-mer patterns. The algorithims of counting these patterns will be implemented through the FrequentWords() and BetterFrequentWords() approaches. Task 3 will allow us to generate random DNA sequences of various lengths. Task 4 will provide graphs for the runtimes of the algorithims implemented in Task 1 and 2, which will be compared. Task 5 will use our algorithims to report the most frequent k-mers of varrying sizes in the coronavirus 2 genome. Finally, Task 6 will allow us to determine which genes certain k-mers belong to and whether or not they are in an intergeneic region.
 
-# Introduction
+# **Introduction**
 
 In this assignment we use the field of bioinformatics to determine different attributes of the SARS-CoV 2 genome. The first half of the assignment uses algorithms to process genome sequences and the second half utilizes those algorithms in order to compute frequent k-mers in the SARS-CoV 2 genome. All code is implemented using python.
 
@@ -52,6 +52,12 @@ TGTGCCGGCGCAACACTTGC [[('T', 'G', 'C'), [[3, 6], [18, 21]]]]
 This graph displays the runtime of the FrequentWords() method in red and the BetterFrequentWords() method in blue
 
 ![](images/image-1170451519.png)
+
+1- The first k-mer we chose is 15 in SARS-CoV-2 genome which has the sequence &quot;TTGCAGAGTGGTTTT&quot; which was located in two duplicate positions from 7436 to 7451, and from 10289 to 10304. Based on the GTF file, it appears that the k-mer &quot;TTGCAGAGTGGTTTT&quot; is not in an intergenic region but falls within the bounds of a gene. In particular, it falls within the CDS (coding sequence) of the gene with ID &quot;cds- YP_009724389.1&quot; and parent gene &quot;gene-GU280_gp01&quot;. This gene is also known as &quot;ORF1ab&quot; and encodes a large polyprotein that is cleaved into various non-structural proteins (nsps) that are essential for viral replication.
+
+2- The second k-mer is12 &quot;GTTGATGGTGT&quot; is found at three different locations in the SARS-CoV-2 genome: Positions 1: 14746-14758 (within the ORF1ab gene), Positions 2:0101-20113 (within the ORF3a gene) and Positions 3: 20549-20561 (within the ORF3a gene). based on the GTF annotation file, the frequent 12-mer &quot;GTTGATGGTGT&quot; is not present in any annotated gene regions and is located in intergenic regions. Based on research, there is currently no information available indicating whether the specific 12-mer sequence &quot;GTTGATGGTGT&quot; found in SARS-CoV-2 is present in other species. However, it is possible that similar or identical sequences may be found in other viral or genomic sequences.
+
+3- The last k-mer is 13 which found in two different positions [2817, 2830] and [15889,15902]. Based on the GTF file, the k-mer &quot;TGATGGTAAACAA&quot; does not fall within any annotated feature in the reference genome which includes genes, transcripts, and other features. Therefore, the k-mer is considered to be in the intergenic region.
 
 # Discussion
 
