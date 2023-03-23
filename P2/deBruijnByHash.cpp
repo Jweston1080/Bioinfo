@@ -21,12 +21,14 @@ struct DNAHasher
 {
     std::size_t operator()(const string & seq) const
     {
+        size_t val = 0;
         // TO DO: Write a DNA sequence hash function here
         
         // BEGIN your code here:
         
         
         // END your code above
+        return val;
     }
 };
 
