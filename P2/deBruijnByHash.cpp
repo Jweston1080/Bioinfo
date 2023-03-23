@@ -23,14 +23,22 @@ struct DNAHasher
     {
         size_t val = 0;
         // TO DO: Write a DNA sequence hash function here
-        
         // BEGIN your code here:
-        
-        
+        for (const char &c : seq) {
+            val <<= 2;
+            switch (c) {
+                case 'A': case 'a': val += 0; break;
+                case 'C': case 'c': val += 1; break;
+                case 'G': case 'g': val += 2; break;
+                case 'T': case 't': val += 3; break;
+                default: throw std::invalid_argument("Invalid DNA base");
+            }
         // END your code above
+        }
         return val;
     }
 };
+
 
 struct AlphabetHasher
 // An example hash function used for the English alphabet
@@ -80,31 +88,34 @@ void create_deBruijn_graph_by_hashing(const vector<string> & kmers, DiGraph & g)
     
     // create one hash table for both the k-1 prefix and suffix of
     //   each k-mer
-    
+    CSeqHash ht = create_hash_table(kmers);
+    g.m_nodes.resize(ht.size());
     // initialize an empty node vector for graph g
-    
-    
     // for each k-mer
-    
+    for (const auto &kmer : kmers)
+    {
         // find the prefix node id from_id from the hash table
-        
-
+        string prefix = kmer.substr(0, kmer.length() - 1);
+        string suffix = kmer.substr(1, kmer.length() - 1);
         // update node from_id's label to prefix if necessary
-
-    
         // find the suffix node id to_id from the hash table
-        
-    
         // update node to_id's label to suffix if necessary
-    
-    
+        size_t from_id = ht.find(prefix)->second;
+        size_t to_id = ht.find(suffix)->second;
         // create a new edge (from_id, to_id) by inserting node
         //   to_id into the adjaceny list of node from_id
-
-    
+        if (g.m_nodes[from_id].m_label.empty()) {
+            g.m_nodes[from_id].m_label = prefix;
+        }
+        if (g.m_nodes[to_id].m_label.empty()) {
+            g.m_nodes[to_id].m_label = suffix;
+        }
         // update the number of incoming edges of node to_id
-    
-    // end for loop
+        g.m_nodes[from_id].m_outgoing.push_back(to_id);
+        // transfer the nodes from the vector to the graph
+        g.m_nodes[to_id].m_num_of_incoming++;    
+
+   } // end for loop
 
     // END your code above
 

@@ -12,7 +12,7 @@ using namespace std;
 
 extern void test_seq_assembly();
 
-extern void test_3(const string & method);
+extern void test_1(const string & method);
 
 int main(int argc, const char * argv[])
 {
