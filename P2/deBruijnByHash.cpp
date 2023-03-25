@@ -24,15 +24,10 @@ struct DNAHasher
         size_t val = 0;
         // TO DO: Write a DNA sequence hash function here
         // BEGIN your code here:
-        for (const char &c : seq) {
-            val <<= 2;
-            switch (c) {
-                case 'A': case 'a': val += 0; break;
-                case 'C': case 'c': val += 1; break;
-                case 'G': case 'g': val += 2; break;
-                case 'T': case 't': val += 3; break;
-                default: throw std::invalid_argument("Invalid DNA base");
-            }
+      // DNA sequence hash function implementation
+        for (size_t i = 0; i < seq.size(); ++i) {
+            val = (val << 2) | (seq[i] & 3); // combine two bits of each nucleotide to a byte
+        
         // END your code above
         }
         return val;
@@ -83,7 +78,7 @@ void create_deBruijn_graph_by_hashing(const vector<string> & kmers, DiGraph & g)
 // create a deBruijn graph by inserting all k-mers into the graph by hashing
 {
     // TO DO:
-    
+    /*
     // BEGIN your code below:
     
     // create one hash table for both the k-1 prefix and suffix of
@@ -93,7 +88,7 @@ void create_deBruijn_graph_by_hashing(const vector<string> & kmers, DiGraph & g)
     // initialize an empty node vector for graph g
     // for each k-mer
     for (const auto &kmer : kmers)
-    {
+    {   
         // find the prefix node id from_id from the hash table
         string prefix = kmer.substr(0, kmer.length() - 1);
         string suffix = kmer.substr(1, kmer.length() - 1);
@@ -114,9 +109,37 @@ void create_deBruijn_graph_by_hashing(const vector<string> & kmers, DiGraph & g)
         g.m_nodes[from_id].m_outgoing.push_back(to_id);
         // transfer the nodes from the vector to the graph
         g.m_nodes[to_id].m_num_of_incoming++;    
+    */
+
+
+    // create one hash table for both the k-1 prefix and suffix of each k-mer
+    CSeqHash ht = create_hash_table(kmers);
+    // initialize an empty node vector for graph g
+    vector<Node> nodes(ht.size());
+    for (auto itr = ht.begin(); itr != ht.end(); ++itr) {
+        nodes[itr->second].m_label = itr->first;
+    }
+    // for each k-mer
+    for (auto i = 0u; i < kmers.size(); ++i) {
+        // find the prefix node id from_id from the hash table
+        auto prefix_key = kmers[i].substr(0, kmers[i].length() - 1);
+        auto itr = ht.find(prefix_key);
+        auto from_id = itr->second;
+        // find the suffix node id to_id from the hash table
+        auto suffix_key = kmers[i].substr(1, kmers[i].length() - 1);
+        itr = ht.find(suffix_key);
+        auto to_id = itr->second;
+        // create a new edge (from_id, to_id) by inserting node to_id into the adjacency list of node from_id
+        nodes[from_id].m_outgoing.push_back(to_id);
+        // update the number of incoming edges of node to_id
+        nodes[to_id].m_num_of_incoming++;
+    }
+    // transfer the nodes from the vector to the graph
+    g.m_nodes.swap(nodes);
+
 
    } // end for loop
 
     // END your code above
 
-}
+
