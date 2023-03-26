@@ -18,18 +18,36 @@ using namespace std;
 
 struct DNAHasher
 // Hash function used for DNA sequence
+//task 1 I NEED TO DO
 {
     std::size_t operator()(const string & seq) const
     {
         size_t val = 0;
         // TO DO: Write a DNA sequence hash function here
         // BEGIN your code here:
-      // DNA sequence hash function implementation
-        for (size_t i = 0; i < seq.size(); ++i) {
-            val = (val << 2) | (seq[i] & 3); // combine two bits of each nucleotide to a byte
+        
+        // get length of kmer
+        size_t k = seq.size();
+        /**
+         * We are doing this to handle odd and even kmers,
+         * even obviously works since we are diviing by two.
+         * Since int rounds down, diving by 2 then subtracting result
+         * from k will work for odd kmers as well
+        */
+
+        // Get the prefix and suffix of the k-mer
+        size_t prefix_len = k / 2;   
+        size_t suffix_len = k - prefix_len;
+        string prefix = seq.substr(0, prefix_len);
+        string suffix = seq.substr(prefix_len);
+        
+        // Concatenate the prefix and suffix and hash the resulting string
+        string prefix_suffix = prefix + suffix;
+        for (size_t i = 0; i < prefix_suffix.size(); ++i) {
+            val = (val << 2) | (prefix_suffix[i] & 3); // combine two bits of each nucleotide to a byte
+        }
         
         // END your code above
-        }
         return val;
     }
 };
@@ -37,6 +55,7 @@ struct DNAHasher
 
 struct AlphabetHasher
 // An example hash function used for the English alphabet
+//task 1 helpful example
 {
     std::size_t operator()(const string & seq) const
     {
@@ -54,7 +73,8 @@ struct AlphabetHasher
 // typedef unordered_multimap<string, size_t, AlphabetHasher> CSeqHash;
 
 typedef unordered_multimap<string, size_t, DNAHasher> CSeqHash;
-
+// related to my task 1 but nothing needs to be done here, DNAHasher is
+// implicitly called
 CSeqHash create_hash_table(const vector<string> & kmers)
 // create one hash table by inserting both the prefix and suffix of each
 //   k-mer. The prefix and suffix is the key. Associated with each element
@@ -83,7 +103,7 @@ void create_deBruijn_graph_by_hashing(const vector<string> & kmers, DiGraph & g)
     
     // create one hash table for both the k-1 prefix and suffix of
     //   each k-mer
-    CSeqHash ht = create_hash_table(kmers);
+    CSeqHash ht = create_hash_table(kmers); //My task 1 is required for this
     g.m_nodes.resize(ht.size());
     // initialize an empty node vector for graph g
     // for each k-mer
