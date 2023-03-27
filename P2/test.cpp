@@ -82,19 +82,20 @@ static void test_1(const string & method)
         }
         
         try {
+
             list<size_t> path = find_Eulerian_path(g);
-            
+    
             string seq = build_sequence(path, g);
             
             stringstream ss;
             ss << "Test 1 Example " << i;
-            
+    
             test_and_print_message(seq, seq_truth, k, ss.str());
             
         } catch (string err_message) {
             cerr << "ERROR: " << err_message << endl;
         }
-    }
+    } // end for 
 }
 
 static void test_2(const string & method)

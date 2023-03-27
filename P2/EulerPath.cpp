@@ -47,34 +47,40 @@ size_t sink(const DiGraph & g)
 
 
 list<size_t> find_Eulerian_cycle(DiGraph & g)
-// find an Eulerian cycle from graph g
 {
-    list <size_t> cycle; // main cycle
-    
-    size_t start_node = source(g);
-    while (g.m_nodes[start_node].m_outgoing.empty()) {
-        start_node++;
+    list<size_t> cycle; // main cycle
+    size_t src = source(g);    // find the source node
+    size_t dest = sink(g);     // find the sink node
+
+    // Check if the graph has an Eulerian cycle
+    if (!has_Eulerian_path(g)) {
+        throw "The graph does not have an Eulerian cycle!";
     }
-    
-    // Use a stack to keep track of the path
-    stack<size_t> node_stack;
-    node_stack.push(start_node);
-    
-    while (!node_stack.empty()) {
-        size_t u = node_stack.top();
-        if (g.m_nodes[u].m_outgoing.empty()) {
-            // If u has no unvisited outgoing edges, add u to the cycle
-            cycle.push_back(u);
-            node_stack.pop();
-        } else {
-            // Otherwise, find a non-visited edge and follow it
-            size_t v = g.m_nodes[u].m_outgoing.back();
-            g.m_nodes[u].m_outgoing.pop_back();
-            node_stack.push(v);
+
+    stack<size_t> nodeStack;
+
+    // Start from an arbitrary vertex
+    nodeStack.push(0);
+
+    while (!nodeStack.empty()) {
+        size_t curNode = nodeStack.top();
+
+        if (!g.m_nodes[curNode].m_outgoing.empty()) {
+
+            // Traverse the outgoing edges of the current node
+            size_t neighbor = g.m_nodes[curNode].m_outgoing.front(); // Only process one adjacent node at a time
+            g.m_nodes[curNode].m_outgoing.pop_front(); // Delete that node from the adjacency list
+            nodeStack.push(neighbor);
+        }
+        else {
+            // If we have visited this node before, it means we have completed a cycle
+            // Add this node to the cycle and remove it from the stack
+            cycle.push_back(curNode);
+            nodeStack.pop();
         }
     }
-    
-    // Reverse the cycle to get the correct order
+
+    // Reverse the order of nodes in the cycle to get the correct orientation
     cycle.reverse();
 
     return cycle;
