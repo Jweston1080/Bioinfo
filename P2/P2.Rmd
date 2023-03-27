@@ -18,6 +18,10 @@ n this assignment, we were given multiple skeleton code and it was our task to f
 
 In the implementation of DNAHasher (task 1), the "seq" parameter was provided to calculate the length of the "k" parameter using the "size()" method. The prefix and suffix lengths were obtained by dividing "k" by 2. If "k" was even, this calculation was straightforward. However, if "k" was odd, we rounded down when using an integer, so we calculated the suffix length as "k - prefix_len". The prefix and suffix were then combined using bit shift and OR operations to obtain the hash key. Finally, the hash key was returned as the output.
 
+
+In the implementation of find_Eulerian_cycle(task 3), We use a stack to keep track of the cycles that exist. As we do this, every time we encounter a visited node, that means we have a cycle so we add it to the cycle list and remove it from the stack. 
+
+
 **TODO** Describe the data structures and algorithms that you have designed. Describe how to compile your code. Describe how to run your code to reproduce the results in your report.
 
 # **Results**
@@ -25,6 +29,7 @@ In the implementation of DNAHasher (task 1), the "seq" parameter was provided to
 **TODO** Attach the screen printout of your program on the test cases shown above. Use the code provided to generate long sequences. Report the k-assembler run time as a function of the number of k-mers and the value of k for both the sequence comparison and hashing methods. Visualize the runtime in your report.
 
 # **Discussion**
+This project was quite difficult, but after grasping the idea of deBruijn graphs the code makes since. Overall, some of the skeleton code was confusing to understand but allowed for a fast computation time for larger sequences. 
 
 # **Distribution** 
 
