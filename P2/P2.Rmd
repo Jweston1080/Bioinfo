@@ -16,6 +16,8 @@ n this assignment, we were given multiple skeleton code and it was our task to f
 
 # **Methods**
 
+In the implementation of DNAHasher (task 1), the "seq" parameter was provided to calculate the length of the "k" parameter using the "size()" method. The prefix and suffix lengths were obtained by dividing "k" by 2. If "k" was even, this calculation was straightforward. However, if "k" was odd, we rounded down when using an integer, so we calculated the suffix length as "k - prefix_len". The prefix and suffix were then combined using bit shift and OR operations to obtain the hash key. Finally, the hash key was returned as the output.
+
 **TODO** Describe the data structures and algorithms that you have designed. Describe how to compile your code. Describe how to run your code to reproduce the results in your report.
 
 # **Results**
