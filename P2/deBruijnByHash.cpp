@@ -76,72 +76,73 @@ CSeqHash create_hash_table(const vector<string> & kmers)
     return ht;
 }
 
-void create_deBruijn_graph_by_hashing(const vector<string> & kmers, DiGraph & g)
-// create a deBruijn graph by inserting all k-mers into the graph by hashing
+void create_deBruijn_graph_by_hashing(const vector<string> &kmers, DiGraph &g)
 {
-    // TO DO:
-    /*
-    // BEGIN your code below:
-    
-    // create one hash table for both the k-1 prefix and suffix of
-    //   each k-mer
-    CSeqHash ht = create_hash_table(kmers); //My task 1 is required for this
-    g.m_nodes.resize(ht.size());
-    // initialize an empty node vector for graph g
-    // for each k-mer
+    CSeqHash node_map; // hash table for prefix and suffix of each k-mer
+    vector<Node> nodes; // node vector for graph g
+    std::cout << "Entered create_deBruijn_graph_by_hashing()";
+
+    // iterate over each k-mer and create corresponding nodes and edges
     for (const auto &kmer : kmers)
-    {   
-        // find the prefix node id from_id from the hash table
+    {
         string prefix = kmer.substr(0, kmer.length() - 1);
-        string suffix = kmer.substr(1, kmer.length() - 1);
-        // update node from_id's label to prefix if necessary
-        // find the suffix node id to_id from the hash table
-        // update node to_id's label to suffix if necessary
-        size_t from_id = ht.find(prefix)->second;
-        size_t to_id = ht.find(suffix)->second;
-        // create a new edge (from_id, to_id) by inserting node
-        //   to_id into the adjaceny list of node from_id
-        if (g.m_nodes[from_id].m_label.empty()) {
-            g.m_nodes[from_id].m_label = prefix;
-        }
-        if (g.m_nodes[to_id].m_label.empty()) {
-            g.m_nodes[to_id].m_label = suffix;
-        }
-        // update the number of incoming edges of node to_id
-        g.m_nodes[from_id].m_outgoing.push_back(to_id);
-        // transfer the nodes from the vector to the graph
-        g.m_nodes[to_id].m_num_of_incoming++;    
-    */
+        string suffix = kmer.substr(1);
 
+        // check if prefix node exists
+        auto range = node_map.equal_range(prefix);
+        bool prefix_node_exists = false;
+        for (auto it = range.first; it != range.second; ++it)
+        {
+            size_t node_id = it->second;
+            if (nodes[node_id].m_label == prefix)
+            {
+                prefix_node_exists = true;
+                break;
+            }
+        }
 
-    // create one hash table for both the k-1 prefix and suffix of each k-mer
-    CSeqHash ht = create_hash_table(kmers);
-    // initialize an empty node vector for graph g
-    vector<Node> nodes(ht.size());
-    for (auto itr = ht.begin(); itr != ht.end(); ++itr) {
-        nodes[itr->second].m_label = itr->first;
-    }
-    // for each k-mer
-    for (auto i = 0u; i < kmers.size(); ++i) {
-        // find the prefix node id from_id from the hash table
-        auto prefix_key = kmers[i].substr(0, kmers[i].length() - 1);
-        auto itr = ht.find(prefix_key);
-        auto from_id = itr->second;
-        // find the suffix node id to_id from the hash table
-        auto suffix_key = kmers[i].substr(1, kmers[i].length() - 1);
-        itr = ht.find(suffix_key);
-        auto to_id = itr->second;
-        // create a new edge (from_id, to_id) by inserting node to_id into the adjacency list of node from_id
+        size_t from_id;
+        if (prefix_node_exists)
+        {
+            from_id = range.first->second;
+        }
+        else
+        {
+            from_id = nodes.size();
+            nodes.emplace_back(Node{prefix});
+            node_map.emplace(prefix, from_id);
+        }
+
+        // check if suffix node exists
+        range = node_map.equal_range(suffix);
+        bool suffix_node_exists = false;
+        size_t to_id;
+        for (auto it = range.first; it != range.second; ++it)
+        {
+            size_t node_id = it->second;
+            if (nodes[node_id].m_label == suffix)
+            {
+                suffix_node_exists = true;
+                to_id = node_id;
+                break;
+            }
+        }
+
+        if (!suffix_node_exists)
+        {
+            to_id = nodes.size();
+            nodes.emplace_back(Node{suffix});
+            node_map.emplace(suffix, to_id);
+        }
+
+        // add edge
         nodes[from_id].m_outgoing.push_back(to_id);
-        // update the number of incoming edges of node to_id
-        nodes[to_id].m_num_of_incoming++;
+        ++nodes[to_id].m_num_of_incoming;
     }
-    // transfer the nodes from the vector to the graph
-    g.m_nodes.swap(nodes);
 
+    // assign nodes to graph
+    g.m_nodes = std::move(nodes);
+    std::cout << "Entered create_deBruijn_graph_by_hashing()";
 
-   } // end for loop
-
-    // END your code above
-
+}
 
