@@ -25,6 +25,23 @@ struct DNAHasher
         // TO DO: Write a DNA sequence hash function here
         // BEGIN your code here:
       // DNA sequence hash function implementation
+      // get length of kmer
+        size_t k = seq.size();
+        /**
+         * We are doing this to handle odd and even kmers,
+         * even obviously works since we are diviing by two.
+         * Since int rounds down, diving by 2 then subtracting result
+         * from k will work for odd kmers as well
+        */
+
+        // Get the prefix and suffix of the k-mer
+        size_t prefix_len = k / 2;   
+        size_t suffix_len = k - prefix_len;
+        string prefix = seq.substr(0, prefix_len);
+        string suffix = seq.substr(prefix_len);
+
+        // Concatenate the prefix and suffix and hash the resulting string
+        string prefix_suffix = prefix + suffix;
         for (size_t i = 0; i < seq.size(); ++i) {
             val = (val << 2) | (seq[i] & 3); // combine two bits of each nucleotide to a byte
         
