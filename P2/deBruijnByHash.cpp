@@ -97,7 +97,6 @@ void create_deBruijn_graph_by_hashing(const vector<string> &kmers, DiGraph &g)
 {
     CSeqHash node_map; // hash table for prefix and suffix of each k-mer
     vector<Node> nodes; // node vector for graph g
-    std::cout << "Entered create_deBruijn_graph_by_hashing()";
 
     // iterate over each k-mer and create corresponding nodes and edges
     for (const auto &kmer : kmers)
@@ -159,7 +158,5 @@ void create_deBruijn_graph_by_hashing(const vector<string> &kmers, DiGraph &g)
 
     // assign nodes to graph
     g.m_nodes = std::move(nodes);
-    std::cout << "Entered create_deBruijn_graph_by_hashing()";
-
 }
 
