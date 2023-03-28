@@ -364,10 +364,7 @@ successfully assemble input DNA k-mers into an output sequence that
 exactly matches the k-composition of the true, unknown sequence. We will
 expertly use the de Bruijn graph to represent the k-mers and then
 accurately identify an Eulerian path from the graph.</p>
-</div>
-<div id="introduction" class="section level1">
-<h1><strong>Introduction</strong></h1>
-<p>n this assignment, we were given multiple skeleton code and it was
+<p>In this assignment, we were given multiple skeleton code and it was
 our task to fill in the functions: void
 create_deBruijn_graph_by_hashing, struct DNAHasher,
 and list&lt;size_t&gt; find_Eulerian_cycle(DiGraph &amp; g). The code
@@ -380,24 +377,262 @@ standard.</p>
 </div>
 <div id="methods" class="section level1">
 <h1><strong>Methods</strong></h1>
-<p><strong>TODO</strong> Describe the data structures and algorithms
-that you have designed. Describe how to compile your code. Describe how
-to run your code to reproduce the results in your report.</p>
+<p>In the implementation of DNAHasher (task 1), the “seq” parameter was
+provided to calculate the length of the “k” parameter using the “size()”
+method. The prefix and suffix lengths were obtained by dividing “k” by
+2. If “k” was even, this calculation was straightforward. However, if
+“k” was odd, we rounded down when using an integer, so we calculated the
+suffix length as “k - prefix_len”.</p>
+<pre class="c++11"><code>struct DNAHasher
+// Hash function used for DNA sequence
+{
+    std::size_t operator()(const string &amp; seq) const
+    {
+        size_t val = 0;
+        // TO DO: Write a DNA sequence hash function here
+        // BEGIN your code here:
+      // DNA sequence hash function implementation
+      // get length of kmer
+        size_t k = seq.size();
+        /**
+         * We are doing this to handle odd and even kmers,
+         * even obviously works since we are diviing by two.
+         * Since int rounds down, diving by 2 then subtracting result
+         * from k will work for odd kmers as well
+        */
+
+        // Get the prefix and suffix of the k-mer
+        size_t prefix_len = k / 2;   
+        size_t suffix_len = k - prefix_len;
+        string prefix = seq.substr(0, prefix_len);
+        string suffix = seq.substr(prefix_len);
+
+        // Concatenate the prefix and suffix and hash the resulting string
+        string prefix_suffix = prefix + suffix;
+        for (size_t i = 0; i &lt; seq.size(); ++i) {
+            val = (val &lt;&lt; 2) | (seq[i] &amp; 3); // combine two bits of each nucleotide to a byte
+        
+        // END your code above
+        }
+        return val;
+    }
+};</code></pre>
+<p>The prefix and suffix (task 2 ) were then combined using bit shift
+and OR operations to obtain the hash key. Finally, the hash key was
+returned as the output.</p>
+<pre class="c++11"><code>void create_deBruijn_graph_by_hashing(const vector&lt;string&gt; &amp;kmers, DiGraph &amp;g)
+{
+    CSeqHash node_map; // hash table for prefix and suffix of each k-mer
+    vector&lt;Node&gt; nodes; // node vector for graph g
+
+    // iterate over each k-mer and create corresponding nodes and edges
+    for (const auto &amp;kmer : kmers)
+    {
+        string prefix = kmer.substr(0, kmer.length() - 1);
+        string suffix = kmer.substr(1);
+
+        // check if prefix node exists
+        auto range = node_map.equal_range(prefix);
+        bool prefix_node_exists = false;
+        for (auto it = range.first; it != range.second; ++it)
+        {
+            size_t node_id = it-&gt;second;
+            if (nodes[node_id].m_label == prefix)
+            {
+                prefix_node_exists = true;
+                break;
+            }
+        }
+
+        size_t from_id;
+        if (prefix_node_exists)
+        {
+            from_id = range.first-&gt;second;
+        }
+        else
+        {
+            from_id = nodes.size();
+            nodes.emplace_back(Node{prefix});
+            node_map.emplace(prefix, from_id);
+        }
+
+        // check if suffix node exists
+        range = node_map.equal_range(suffix);
+        bool suffix_node_exists = false;
+        size_t to_id;
+        for (auto it = range.first; it != range.second; ++it)
+        {
+            size_t node_id = it-&gt;second;
+            if (nodes[node_id].m_label == suffix)
+            {
+                suffix_node_exists = true;
+                to_id = node_id;
+                break;
+            }
+        }
+
+        if (!suffix_node_exists)
+        {
+            to_id = nodes.size();
+            nodes.emplace_back(Node{suffix});
+            node_map.emplace(suffix, to_id);
+        }
+
+        // add edge
+        nodes[from_id].m_outgoing.push_back(to_id);
+        ++nodes[to_id].m_num_of_incoming;
+    }
+
+    // assign nodes to graph
+    g.m_nodes = std::move(nodes);
+}</code></pre>
+<p>In the implementation of find_Eulerian_cycle(task 3), We use a stack
+to keep track of the cycles that exist. As we do this, every time we
+encounter a visited node, that means we have a cycle so we add it to the
+cycle list and remove it from the stack.</p>
+<pre class="c++11"><code>list&lt;size_t&gt; find_Eulerian_cycle(DiGraph &amp; g)
+{
+    list&lt;size_t&gt; cycle; // main cycle
+    size_t src = source(g);    // find the source node
+    size_t dest = sink(g);     // find the sink node
+
+    // Check if the graph has an Eulerian cycle
+    if (!has_Eulerian_path(g)) {
+        throw &quot;The graph does not have an Eulerian cycle!&quot;;
+    }
+
+    stack&lt;size_t&gt; nodeStack;
+
+    // Start from an arbitrary vertex
+    nodeStack.push(0);
+
+    while (!nodeStack.empty()) {
+        size_t curNode = nodeStack.top();
+
+        if (!g.m_nodes[curNode].m_outgoing.empty()) {
+
+            // Traverse the outgoing edges of the current node
+            size_t neighbor = g.m_nodes[curNode].m_outgoing.front(); // Only process one adjacent node at a time
+            g.m_nodes[curNode].m_outgoing.pop_front(); // Delete that node from the adjacency list
+            nodeStack.push(neighbor);
+        }
+        else {
+            // If we have visited this node before, it means we have completed a cycle
+            // Add this node to the cycle and remove it from the stack
+            cycle.push_back(curNode);
+            nodeStack.pop();
+        }
+    }
+
+    // Reverse the order of nodes in the cycle to get the correct orientation
+    cycle.reverse();
+
+    return cycle;
+}</code></pre>
+<p>The command used to run code :</p>
+<pre><code>clang++ -std=c++11 *.cpp *.hpp
+./a.out</code></pre>
+<p>Then after the results to clear unnessesary files run:</p>
+<pre><code>rm *.gch
+rm *.out</code></pre>
 </div>
 <div id="results" class="section level1">
 <h1><strong>Results</strong></h1>
-<p><strong>TODO</strong> Attach the screen printout of your program on
-the test cases shown above. Use the code provided to generate long
-sequences. Report the k-assembler run time as a function of the number
-of k-mers and the value of k for both the sequence comparison and
-hashing methods. Visualize the runtime in your report.</p>
+<p>In the deBruijn.dot our output is as follows:</p>
+<pre><code>digraph {
+label=&quot;de Bruijn graph&quot;
+ccc-&gt;ccg[label=cccg];
+ccg-&gt;cgc[label=ccgc];
+acc-&gt;ccc[label=accc];
+aac-&gt;acc[label=aacc];
+gct-&gt;ctg[label=gctg];
+ctg-&gt;tga[label=ctga];
+atc-&gt;tca[label=atca];
+tca-&gt;caa[label=tcaa];
+caa-&gt;aac[label=caac];
+cgc-&gt;gct[label=cgct];
+tga-&gt;gat[label=tgat];
+aat-&gt;atc[label=aatc];
+}</code></pre>
+<p>The output :</p>
+<pre><code>-----------
+Testing k-assembler by k-mer pairwise comparison
+
+Example 0:
+Elapsed time for building de Bruijn graph: 6e-05
+Passed test for existence of Eulerian path. Congratulations!
+Passed Test 1 Example 0 (assembled original sequence). Congratulations!
+
+Example 1:
+Elapsed time for building de Bruijn graph: 3.2e-05
+Passed test for existence of Eulerian path. Congratulations!
+Passed Test 1 Example 1 (assembled a sequence of the same composition with the original sequence). Congratulations!
+
+Example 2:
+Elapsed time for building de Bruijn graph: 2.7e-05
+Passed test for existence of Eulerian path. Congratulations!
+Passed Test 1 Example 2 (assembled original sequence). Congratulations!
+
+Example 3:
+Elapsed time for building de Bruijn graph: 15.7821
+Passed test for existence of Eulerian path. Congratulations!
+Passed Test 1 Example 3 (assembled original sequence). Congratulations!
+
+Passed Test 2 (assembled a sequence of the same composition with the original sequence). Congratulations!
+
+-----------
+Testing k-assembler by k-mer hashing
+
+Example 0:
+Elapsed time for building de Bruijn graph: 3.3e-05
+Passed test for existence of Eulerian path. Congratulations!
+Passed Test 1 Example 0 (assembled original sequence). Congratulations!
+
+Example 1:
+Elapsed time for building de Bruijn graph: 3.7e-05
+Passed test for existence of Eulerian path. Congratulations!
+Passed Test 1 Example 1 (assembled a sequence of the same composition with the original sequence). Congratulations!
+
+Example 2:
+Elapsed time for building de Bruijn graph: 4e-05
+Passed test for existence of Eulerian path. Congratulations!
+Passed Test 1 Example 2 (assembled original sequence). Congratulations!
+
+Example 3:
+Elapsed time for building de Bruijn graph: 0.144408
+Passed test for existence of Eulerian path. Congratulations!
+Passed Test 1 Example 3 (assembled original sequence). Congratulations!
+
+Passed Test 2 (assembled a sequence of the same composition with the original sequence). Congratulations!
+
+-----------
+Sequence: aatcaacccgctgat
+kmers:
+cccg
+accc
+aacc
+gctg
+atca
+tcaa
+ccgc
+cgct
+ctga
+aatc
+caac
+tgat
+Passed Test 3 (assembled original sequence). Congratulations!</code></pre>
 </div>
 <div id="discussion" class="section level1">
 <h1><strong>Discussion</strong></h1>
+<p>This project was quite difficult, but after grasping the idea of de
+Bruijn graphs, the code makes sense. Overall, some of the skeleton code
+was confusing to understand but it allowed for fast computation time for
+larger sequences. With our skeleton code and added modifications, we
+were able to receive an output and pass all three tests: building the de
+Bruijn graph and testing for the existence of an Eulerian path.</p>
 </div>
 <div id="distribution" class="section level1">
 <h1><strong>Distribution</strong></h1>
-<p><strong>TODO</strong></p>
 <p>With having three initial tasks, we split each task between each
 member. Raghda was assigned Task 1 (Implement a hash function to match
 the prefix and suffix of a k-mer to those of other k-mers), Calicia Task
