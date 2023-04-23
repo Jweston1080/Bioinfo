@@ -3,7 +3,10 @@ from ete3 import Tree,TreeStyle,TextFace, PhyloTree
 from scipy.spatial.distance import squareform
 from scipy.cluster.hierarchy import average, to_tree
 import numpy as np
+import time 
 
+#------------Task 1 ------------------#
+start_time = time.time()
 
 # function to calculate Hamming distance between two sequences
 def hamming_distance(seq1, seq2):
@@ -33,8 +36,12 @@ with open("output_file.csv", "w") as f:
     for row in distance_matrix:
         f.write(",".join(str(x) for x in row) + "\n")
 
+end_time = time.time()
+task1_time = end_time - start_time
+print(f"Task 1 runtime: {task1_time:.2f} seconds")
 #------------Task 2 ------------------#
 
+start_time = time.time()
 # read in distance matrix from output file of Task 1
 with open("output_file.csv", "r") as f:
     lines = f.readlines()
@@ -109,4 +116,30 @@ except:
 
 # save tree object for use in Task 3
 tree.write(format=1, outfile="tree_task2.nw")
+
+end_time = time.time()
+task2_time = end_time - start_time
+print(f"Task 2 runtime: {task2_time:.2f} seconds")
+
+#------------Task 3 ------------------#
+#start_time = time.time()
+
+# read in tree from output file of Task 2
+# ... rest of Task 3 code ...
+
+#end_time = time.time()
+#task3_time = end_time - start_time
+#print(f"Task 3 runtime: {task3_time:.2f} seconds")
+
+
+#------------Task 4 ------------------#
+#start_time = time.time()
+
+# genomic sequence files of multiple coronaviruses
+# ... rest of Task 4 code ...
+
+#end_time = time.time()
+#task4_time = end_time - start_time
+#print(f"Task 4 runtime: {task3_time:.2f} seconds")
+
 
