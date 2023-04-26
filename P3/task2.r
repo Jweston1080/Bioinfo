@@ -19,9 +19,10 @@ tree$root.edge <- tree$edge.length[1]
 # create a pdf file to save the plot
 pdf("tree_nj.pdf")
 plot(tree, cex = 0.7, main = "Neighbor Joining Tree")
-# close the pdf file
-dev.off()
+
 
 # save the tree to a file in Newick format
 write.tree(tree, file="tree_nj.nwk")
 
+# close the pdf file
+dev.off()
