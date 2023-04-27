@@ -1,5 +1,12 @@
 
 #-----------------------
+import pandas as pd
+import numpy as np
+import timeit
+import math
+import random
+import os
+import pathlib
 from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord
 from Bio.Align import MultipleSeqAlignment
