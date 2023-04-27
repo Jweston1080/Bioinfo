@@ -10,15 +10,26 @@ editor_options:
 
 # **Abstract**
 
-In this project, task 1 covers the creation of a distance matrix from a
-fasta file which acts as the input for task 2, which builds a rooted
-phylogenetic tree from the given distance matrix. Task 3 implores the
-idea of using dynamic programming to reconstruct the ancestral sequences
-based on small parsimony by using the phylogenetic tree from task 2 as
-input and outputting the ancestral sequence at each node in the tree.
-Finally, task 4 and 5 deal with frequent 9-mer repeats in corornaviruses
-and the biological hypothesis attached to the phyogenetic tree of
-9-mers.
+This document describes a Python script for performing various tasks
+related to bioinformatics. The first task involves calculating the
+Hamming distance between pairs of DNA sequences in a FASTA file, and
+outputting the resulting distance matrix to a CSV file. The second task
+involves aligning the sequences in the file, calculating pairwise
+distances using the identity metric, and constructing a phylogenetic
+tree based on those distances. The third task involves computing the
+ancestral DNA sequences at each node of the phylogenetic tree, using the
+most common nucleotide at each position. The fourth task involves
+identifying the most frequent 9-mers in the genomic sequence files of
+multiple coronaviruses and visualizing the evolution of the most
+frequent 9-mer repeat in coronaviruses. Finally, an extension task
+involves identifying the most frequent 9-mers in the genomic sequence
+files of HIV, Hepatitis B, Adenovirus, and Ebola, and constructing a
+phylogenetic tree based on the distances between those sequences. The
+script uses various modules from the Biopython library, including
+AlignIO, MultipleSeqAlignment, SeqRecord, Seq, DistanceCalculator, and
+DistanceTreeConstructor. The script is flexible and can be adapted to
+work with other types of genomic data files and perform other types of
+analyses.
 
 # **Methods**
 
@@ -26,30 +37,111 @@ Describe the data structures and algorithms that you have designed.
 Describe how to compile your code. Describe how to run your code to
 reproduce the results in your report.
 
-Methods for Task 1: Data structures and algorithms designed: create an
-empty matrix, then using the 'hamming_distance()' function we calculate
-the hamming distance between every pair of sequences in a list called
-'sequences' and then fill the matrix with all of the hamming distance
-between sequences. The final matrix is written to a file called
-output_file.csv.
+**Task 1:** This task involves calculating the pairwise Hamming
+distances between all sequences in a FASTA file. The method involved
+creating an empty matrix and using the hamming_distance() function to
+calculate the Hamming distance between every pair of sequences in a list
+called sequences. The resulting distances were then filled into the
+matrix. Finally, the distance matrix was written to a file
+called output_file.csv.
 
-Compilation:
+**Task 2**: This task involves the creation of a phylogenetic tree from
+a FASTA file using the neighbor-joining method. First, the FASTA file is
+read in and a MultipleSeqAlignment object is created.
+The DistanceCalculator method from the Bio.Phylo.TreeConstruction module
+is then used to calculate pairwise distances between the sequences in
+the alignment, using the identity metric.
+The DistanceTreeConstructor method is then used to construct a
+neighbor-joining tree from the distance matrix. Finally,
+the Phylo.draw method from the Bio.Phylo module is used to display the
+tree.
 
-How to run code:
+**Task 3**: This task involves the reconstruction of ancestral sequences
+using the neighbor-joining tree generated in Task 2. First, the FASTA
+file is read in and a MultipleSeqAlignment object is created. Pairwise
+distances between the sequences are then calculated using
+the DistanceCalculator method with the identity metric, and a
+neighbor-joining tree is constructed using
+the DistanceTreeConstructor method. For each non-terminal clade in the
+tree, the most common character at each position among its descendant
+sequences is used to reconstruct an ancestral sequence. These ancestral
+sequences are then printed to the console.
 
-Methods for Task 4: 
-Data Retrieval:
-The sequences for bat, pangolin, SARS, Middle East respiratory syndrome coronavirus (MERS-CoV), and severe acute respiratory syndrome coronavirus 2 (SARS-CoV-2) were obtained from the National Center for Biotechnology Information (NCBI) database (https://www.ncbi.nlm.nih.gov).
+**Task 4:** This task involves finding the most frequent 9-mers in
+various coronavirus genomes and constructing a phylogenetic tree based
+on the most frequent 9-mers. The method involved defining the 9-mers for
+each genome and constructing a MultipleSeqAlignment object from the
+sequences. Pairwise distances between the genomes were then calculated
+using the DistanceCalculator method with the identity metric. A
+neighbor-joining tree was then constructed using
+the DistanceTreeConstructor method. The resulting tree was displayed
+using the Phylo.draw method.
 
-Sequence Processing:
-The sequences were processed using the Biopython library in Python. Specifically, the sequences were converted into SeqRecord objects, with each object containing the sequence data and an identifier. The 9-mer sequences for each virus were defined as Seq objects, and a MultipleSeqAlignment object was created to align the sequences.
+-   Data Retrieval: The sequences for bat, pangolin, SARS, Middle East
+    respiratory syndrome coronavirus (MERS-CoV), and severe acute
+    respiratory syndrome coronavirus 2 (SARS-CoV-2) were obtained from
+    the National Center for Biotechnology Information (NCBI) database
+    (<https://www.ncbi.nlm.nih.gov>).
 
-Phylogenetic Tree Construction:
-The distance between each pair of sequences was calculated using the identity distance method provided by Biopython's DistanceCalculator module. The DistanceTreeConstructor module was used to construct the phylogenetic tree based on the computed distances, using the Neighbor-Joining algorithm.
+-   Sequence Processing: The sequences were processed using the
+    Biopython library in Python. Specifically, the sequences were
+    converted into SeqRecord objects, with each object containing the
+    sequence data and an identifier. The 9-mer sequences for each virus
+    were defined as Seq objects, and a MultipleSeqAlignment object was
+    created to align the sequences.
 
-Code Compilation:
-The Python code for this analysis can be compiled using any standard Python interpreter. In addition, the Biopython library must be installed.
+-   Phylogenetic Tree Construction: The distance between each pair of
+    sequences was calculated using the identity distance method provided
+    by Biopython's DistanceCalculator module. The
+    DistanceTreeConstructor module was used to construct the
+    phylogenetic tree based on the computed distances, using the
+    Neighbor-Joining algorithm.
 
+**E1 :** This task involves finding the most frequent 9-mers in various
+other viral genomes and constructing a phylogenetic tree based on the
+most frequent 9-mers. The method was similar to that of task 4, but with
+the use of different viral genomes. The most frequent 9-mers were found
+using the BetterFrequentWords function, and a phylogenetic tree was
+constructed using
+the DistanceCalculator and DistanceTreeConstructor methods. The
+resulting tree was displayed using the Phylo.draw method.
+
+#### Compilation 
+
+To compile this code, you will need to have the necessary Python
+packages installed. These packages include `Biopython`, `numpy`,
+and `time`. You can install these packages using pip:
+
+    pip install biopython numpy
+
+To reproduce the results in the report, you can follow these steps:
+
+1.  Ensure that you have the necessary input files in the correct
+    format. The input files for tasks 1-3 are a FASTA file
+    called `input_file.fasta`, while the input files for task 4 are
+    several FASTA files containing viral genome sequences. **Everything
+    you need is included in the zip.**
+
+2.  Open a terminal or command prompt and navigate to the directory
+    containing the Python script.
+
+3.  According to the machine being ran, `…/P3/proj3.py`
+
+#### Run code 
+
+    python proj3.py
+
+-   The script will run all four tasks as well as the extension task and
+    output the results to the console. The runtime for each task will be
+    displayed, along with any output produced by the task.
+
+Note that the script assumes that the input files are located in the
+same directory as the Python script. If your files are located
+elsewhere, you will need to modify the file paths in the script
+accordingly.
+
+The Python code for this analysis can be compiled using any standard
+Python interpreter.
 
 # **Results**
 
@@ -61,28 +153,54 @@ Task 1 run time: 0.00 seconds Task 2 run time: 0.50 seconds
 
 # **Discussion**
 
-Answer Task 5 here. 
+Answer Task 5 here.
 
-Based on the tree generated using the 9-mers provided, it appears that the SARS genome is more closely related to the Middle East genome than to the Bat, Pangolin, or SARS-CoV-2 genomes (Li et al., 2020). This suggests that there may have been a closer evolutionary relationship between the SARS and Middle East viruses, and that the Bat and Pangolin viruses may have diverged earlier.
-This hypothesis is consistent with previous studies that have suggested that the SARS virus may have originated in bats and then jumped to an intermediate host (such as a civet) before infecting humans (Li et al., 2020; Xu et al., 2020). The Middle East virus, on the other hand, is believed to have originated in camels (Corman et al., 2014).
-In terms of the 9-mers themselves, there has been some research into the conservation and evolution of repetitive elements in viruses. For example, one study published in the journal Virology found that short repeated sequences (such as the 9-mers in question) were common in the genomes of many RNA viruses and may play a role in virus replication and evolution (Sanjuán et al., 2010).
-Overall, while the analysis of the 9-mers alone is unlikely to lead to major new insights into the evolution of viruses, it is a useful tool for understanding the relationships between different virus strains and for generating hypotheses about their evolutionary history.
+Based on the tree generated using the 9-mers provided, it appears that
+the SARS genome is more closely related to the Middle East genome than
+to the Bat, Pangolin, or SARS-CoV-2 genomes (Li et al., 2020). This
+suggests that there may have been a closer evolutionary relationship
+between the SARS and Middle East viruses, and that the Bat and Pangolin
+viruses may have diverged earlier. This hypothesis is consistent with
+previous studies that have suggested that the SARS virus may have
+originated in bats and then jumped to an intermediate host (such as a
+civet) before infecting humans (Li et al., 2020; Xu et al., 2020). The
+Middle East virus, on the other hand, is believed to have originated in
+camels (Corman et al., 2014). In terms of the 9-mers themselves, there
+has been some research into the conservation and evolution of repetitive
+elements in viruses. For example, one study published in the journal
+Virology found that short repeated sequences (such as the 9-mers in
+question) were common in the genomes of many RNA viruses and may play a
+role in virus replication and evolution (Sanjuán et al., 2010). Overall,
+while the analysis of the 9-mers alone is unlikely to lead to major new
+insights into the evolution of viruses, it is a useful tool for
+understanding the relationships between different virus strains and for
+generating hypotheses about their evolutionary history.
 
 Answer Task E2 here if you choose to do it.
 
----- 
+------------------------------------------------------------------------
 
-Task 5 and E2, further research using more comprehensive genomic data and phylogenetic analysis is needed to fully understand the evolution and function of these elements in viruses and could shed more light on the evolution of repetitive elements in viruses and their role in virus replication and evolution.
+Task 5 and E2, further research using more comprehensive genomic data
+and phylogenetic analysis is needed to fully understand the evolution
+and function of these elements in viruses and could shed more light on
+the evolution of repetitive elements in viruses and their role in virus
+replication and evolution.
 
+Refrences: • Corman, V. M., Jores, J., Meyer, B., Younan, M., Liljander,
+A., Said, M. Y., ... & Drosten, C. (2014). Antibodies against MERS
+coronavirus in dromedary camels, Kenya, 1992-2013. Emerging infectious
+diseases, 20(8), 1319--1322. doi: 10.3201/eid2008.140590 • Li, X., Geng,
+M., Peng, Y., Meng, L., & Lu, S. (2020). Molecular immune pathogenesis
+and diagnosis of COVID-19. Journal of Pharmaceutical Analysis, 10(2),
+102--108. doi: 10.1016/j.jpha.2020.03.001 • Sanjuán, R., Nebot, M. R.,
+Chirico, N., Mansky, L. M., & Belshaw, R. (2010). Viral mutation rates.
+Journal of virology, 84(19), 9733--9748. doi: 10.1128/JVI.00694-10 • Xu,
+J., Zhao, S., Teng, T., Abdalla, A. E., Zhu, W., Xie, L., ... & Wang, G.
+(2020). Systematic comparison of two animal-to-human transmitted human
+coronaviruses: SARS-CoV-2 and SARS-CoV. Viruses, 12(2), 244. doi:
+10.3390/v12020244
 
-Refrences: 
-•	Corman, V. M., Jores, J., Meyer, B., Younan, M., Liljander, A., Said, M. Y., ... & Drosten, C. (2014). Antibodies against MERS coronavirus in dromedary camels, Kenya, 1992-2013. Emerging infectious diseases, 20(8), 1319–1322. doi: 10.3201/eid2008.140590
-•	Li, X., Geng, M., Peng, Y., Meng, L., & Lu, S. (2020). Molecular immune pathogenesis and diagnosis of COVID-19. Journal of Pharmaceutical Analysis, 10(2), 102–108. doi: 10.1016/j.jpha.2020.03.001
-•	Sanjuán, R., Nebot, M. R., Chirico, N., Mansky, L. M., & Belshaw, R. (2010). Viral mutation rates. Journal of virology, 84(19), 9733–9748. doi: 10.1128/JVI.00694-10
-•	Xu, J., Zhao, S., Teng, T., Abdalla, A. E., Zhu, W., Xie, L., ... & Wang, G. (2020). Systematic comparison of two animal-to-human transmitted human coronaviruses: SARS-CoV-2 and SARS-CoV. Viruses, 12(2), 244. doi: 10.3390/v12020244
-
-
-# **Distribution Of Work** 
+# **Distribution Of Work**
 
 ### Raghda: Main focus: Task 4 and Task 5
 
@@ -116,7 +234,7 @@ Refrences:
 
 \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
 
-### Jason: Main focus: Task 1 and Task 3 
+### Jason: Main focus: Task 1 and Task 3
 
 [**Coding:**]{.underline}
 
@@ -153,7 +271,7 @@ task 1 and task 3.
 
 \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
 
-### Calicia: Main Focus: Task 2 and Task 3 
+### Calicia: Main Focus: Task 2 and Task 3
 
 [**Coding:**]{.underline}
 
