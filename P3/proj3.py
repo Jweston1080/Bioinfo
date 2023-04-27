@@ -1,6 +1,13 @@
 
 import time 
-
+from Bio.Align import MultipleSeqAlignment
+from Bio.Phylo.TreeConstruction import DistanceCalculator, DistanceTreeConstructor
+from Bio import Phylo
+from Bio.SeqRecord import SeqRecord
+from Bio.Seq import Seq
+import numpy as np
+from Bio import SeqIO
+from Bio import AlignIO
 #------------Task 1 ------------------#
 start_time = time.time()
 
@@ -38,7 +45,7 @@ for i in range(num_seqs):
         distance_matrix[j][i] = dist
 
 # write distance matrix to output file in CSV format
-with open("output_file.csv", "w") as f:
+with open("output_file.fasta", "w") as f:
     for row in distance_matrix:
         f.write(",".join(str(x) for x in row) + "\n")
 
@@ -49,14 +56,23 @@ print(f"Task 1 runtime: {task1_time:.2f} seconds")
 
 start_time = time.time()
 
-import rpy2.robjects as robjects
+# Replace "sequences.fasta" with the path to your FASTA file
+records = AlignIO.read("input_file.fasta", "fasta")
 
-# load the R code from a file
-with open("task2.R", "r") as f:
-    r_code = f.read()
+# Create a MultipleSeqAlignment object
+alignment = MultipleSeqAlignment(records)
 
-# execute the R code
-robjects.r(r_code)
+
+# Calculate pairwise distances using the identity metric
+calculator = DistanceCalculator('identity')
+dm = calculator.get_distance(alignment)
+
+# Construct the phylogenetic tree
+constructor = DistanceTreeConstructor()
+tree = constructor.nj(dm)
+
+# Draw and show the tree using Phylo module
+Phylo.draw(tree)
 
 
 end_time = time.time()
@@ -64,15 +80,16 @@ task2_time = end_time - start_time
 print(f"Task 2 runtime: {task2_time:.2f} seconds")
 
 #------------Task 3 ------------------#
-start_time = time.time()
+#start_time = time.time()
 
-# read in tree from output file of Task 2
+
+
 
 # Read the input file
-
+'''
 end_time = time.time()
 task3_time = end_time - start_time
-print(f"Task 3 runtime: {task3_time:.2f} seconds")
+print(f"Task 3 runtime: {task3_time:.2f} seconds")'''
 
 
 #------------Task 4 ------------------#
