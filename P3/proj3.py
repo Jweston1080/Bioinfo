@@ -10,7 +10,7 @@ from Bio import SeqIO
 from Bio import AlignIO
 #------------Task 1 ------------------#
 start_time = time.time()
-
+print(f"----------------Task 1 start ----------------")
 # function to calculate Hamming distance between two sequences
 def hamming_distance(seq1, seq2):
     assert len(seq1) == len(seq2)
@@ -51,11 +51,11 @@ with open("output_file.fasta", "w") as f:
 
 end_time = time.time()
 task1_time = end_time - start_time
-print(f"Task 1 runtime: {task1_time:.2f} seconds")
+print(f"----------------Task 1 runtime: {task1_time:.2f} seconds----------------")
 #------------Task 2 ------------------#
 
 start_time = time.time()
-
+print(f"----------------Task 2 start ----------------")
 # Replace "sequences.fasta" with the path to your FASTA file
 records = AlignIO.read("input_file.fasta", "fasta")
 
@@ -77,10 +77,11 @@ Phylo.draw(tree)
 
 end_time = time.time()
 task2_time = end_time - start_time
-print(f"Task 2 runtime: {task2_time:.2f} seconds")
+print(f"----------------Task 2 runtime: {task2_time:.2f} seconds----------------")
 
 #------------Task 3 ------------------#
 start_time = time.time()
+print(f"----------------Task 3 start ----------------")
 records = AlignIO.read("input_file.fasta", "fasta")
 
 # Create a MultipleSeqAlignment object
@@ -108,10 +109,12 @@ for clade in tree.find_clades(order='postorder'):
         clade.sequence = combined_seq.seq
     print(f"Node {clade.name}: {clade.sequence}")
 
-
+end_time = time.time()
+task3_time = end_time - start_time
+print(f"----------------Task 3 runtime: {task3_time:.2f} seconds----------------")
 #------------Task 4 ------------------#
 start_time = time.time()
-
+print(f"----------------Task 4 start ----------------")
 # genomic sequence files of multiple coronaviruses
 
 # Task 2 from P1 : Frequent words by hashing to identify 9 mers. 
@@ -204,11 +207,13 @@ Phylo.draw(tree)
 
 end_time = time.time()
 task4_time = end_time - start_time
-print(f"Task 4 runtime: {task4_time:.2f} seconds")
+print(f"----------------Task 4 runtime: {task4_time:.2f} seconds----------------")
 
 
 #----------------------------------------
 #Task E1: 
+print(f"----------------Task E1 start ----------------")
+
 with open ('data/HIV1.fasta') as f:
  genomehiv=f.read().strip()
 
