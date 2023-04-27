@@ -31,6 +31,48 @@ DistanceTreeConstructor. The script is flexible and can be adapted to
 work with other types of genomic data files and perform other types of
 analyses.
 
+# Introduction
+
+Bioinformatics is a rapidly evolving field that aims to use
+computational tools and techniques to analyze and make sense of
+biological data. With the growth of genomic data and the increasing need
+to analyze large and complex datasets, bioinformatics has become an
+essential component of modern biological research. A significant
+challenge in bioinformatics is the development of software tools that
+can effectively manage and analyze large amounts of genomic data.
+
+This report presents a Python script developed for performing various
+bioinformatics tasks. The script uses several modules from the Biopython
+library to execute multiple tasks, including calculating the Hamming
+distance between pairs of DNA sequences in a FASTA file, aligning
+sequences, constructing a phylogenetic tree based on pairwise distances,
+reconstructing ancestral DNA sequences, identifying the most frequent
+9-mers in genomic sequence files, and visualizing the evolution of the
+most frequent 9-mer repeat.
+
+The script is designed to be flexible and adaptable, allowing it to
+handle other types of genomic data files and perform additional types of
+analyses. The tasks performed by the script are essential for
+understanding the relationships between different biological sequences,
+including the evolutionary history of various species and the function
+of specific genomic elements.
+
+This report provides a detailed description of the data structures,
+algorithms, and methods employed in the script's development, as well as
+the results obtained from executing the script on a set of input files.
+The results demonstrate the effectiveness of the script in performing
+various bioinformatics tasks, including the identification of the most
+frequent 9-mers in the genomic sequence files of multiple coronaviruses
+and the reconstruction of ancestral DNA sequences at each node of a
+phylogenetic tree.
+
+Overall, this script provides a powerful tool for conducting
+bioinformatics analyses and exploring evolutionary relationships between
+various biological sequences. As genomic data continues to grow and
+become more complex, the development of flexible and adaptable
+bioinformatics tools will be critical for advancing our understanding of
+biological systems.
+
 # **Methods**
 
 Describe the data structures and algorithms that you have designed.
@@ -106,7 +148,7 @@ constructed using
 the DistanceCalculator and DistanceTreeConstructor methods. The
 resulting tree was displayed using the Phylo.draw method.
 
-#### Compilation 
+#### Compilation
 
 To compile this code, you will need to have the necessary Python
 packages installed. These packages include `Biopython`, `numpy`,
@@ -127,7 +169,7 @@ To reproduce the results in the report, you can follow these steps:
 
 3.  According to the machine being ran, `…/P3/proj3.py`
 
-#### Run code 
+#### Run code
 
     python proj3.py
 
@@ -145,11 +187,79 @@ Python interpreter.
 
 # **Results**
 
-Visualize obtained trees and sequences in Task 4. Visualize obtained
-trees and sequences in Task E1 if you choose to do it. Report the run
-time for Task 1 to 4.
+![](Screenshot%202023-04-27%20at%209.45.08%20AM.png)
 
-Task 1 run time: 0.00 seconds Task 2 run time: 0.50 seconds
+#### Task 1
+
+    ----------------Task 1 start ----------------
+
+    ----------------Task 1 runtime: 0.01 seconds----------------
+
+#### Task 2
+
+    ----------------Task 2 start ----------------
+    ----------------Task 2 runtime: 2.92 seconds----------------
+
+![Task 2 phylogenetic tree based on
+Task1](task2.png){style="color: grey"}
+
+#### Task 3
+
+    ----------------Task 3 start ----------------
+    Node Chimp: ACGTAGGCCT
+    Node Human: ATGTAAGACT
+    Node Inner1: ACGTAGGCCT
+    Node Seal: TCGAGAGCAC
+    Node Whale: TCGAAAGCAT
+    Node Inner2: TCGAAAGCAT
+    ----------------Task 3 runtime: 0.00 seconds----------------
+
+#### Task 4
+
+    ----------------Task 4 start ----------------
+    frequent 9-mers in Covid 2 genome:  ('G', 'A', 'T', 'G', 'G', 'T', 'G', 'T', 'T')
+
+
+
+    frequent 9-mers in Bat genome:  ('C', 'A', 'G', 'C', 'T', 'G', 'G', 'T', 'A')
+
+
+
+    frequent 9-mers in Middle East genome:  ('T', 'T', 'A', 'A', 'C', 'G', 'A', 'A', 'C')
+
+
+
+    frequent 9-mers in Panglin genome:  ('T', 'A', 'A', 'T', 'G', 'G', 'T', 'A', 'A')
+
+
+
+    frequent 9-mers in SARS genome:  ('T', 'A', 'A', 'A', 'C', 'G', 'A', 'A', 'C')
+
+
+
+    frequent 9-mers in Sevre acute genome:  ('G', 'A', 'T', 'G', 'G', 'T', 'G', 'T', 'T')
+    ----------------Task 4 runtime: 1.36 seconds----------------
+
+![The evolution of the most frequent 9-mer repeat in
+coronaviruses.](task4_1.png)
+
+#### E1
+
+    ----------------Task E1 start ----------------
+    Most frequent 9-mers in HIV genome:  ('A', 'A', 'A', 'G', 'A', 'A', 'A', 'A', 'A')
+    Most frequent 9-mers in Hepatitis B genome:  ('T', 'T', 'C', 'T', 'T', 'G', 'T', 'T', 'G')
+    Most frequent 9-mers in Adenovirus genome:  ('G', 'G', 'C', 'G', 'G', 'C', 'G', 'G', 'C')
+    Most frequent 9-mers in Ebola genome:  ('G', 'A', 'A', 'G', 'A', 'T', 'T', 'A', 'A')
+    ----------------Task E1 runtime: 0.77 seconds----------------
+
+![The most frequent 9-mers in various other viral genomes](taskE1.png)
+
+#### Experiment
+
+##### Both Task 4 and E1 together
+
+![Visiualizing both covid genomes and viral genomes
+together](bothE1_task4.png)
 
 # **Discussion**
 
@@ -257,9 +367,9 @@ task 1 and task 3.
 
 **Task 1**: 1 hour
 
-**Task 2**: 1 hour
+**Task 2**: 2 hour
 
-**Task 3**: 3 hours
+**Task 3**: 7 hours
 
 **Task 4**: 0 hours
 
@@ -267,7 +377,7 @@ task 1 and task 3.
 
 **Report management**: 3 hours
 
-**Time spent on project overall**: 8 hours
+**Time spent on project overall**: 13 hours
 
 \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
 
@@ -289,16 +399,16 @@ task 1 and task 3.
 
 [**Time Log:**]{.underline}
 
-**Task 1**:
+**Task 1**: .5 hrs
 
-**Task 2**:
+**Task 2**: 3 hrs
 
-**Task 3**:
+**Task 3**: 4 hrs
 
-**Task 4**:
+**Task 4**: 4 hrs
 
-**Task 5**:
+**Task 5**:0 hrs
 
-**Report management**:
+**Report management**: 2 hr
 
-**Time spent on project overall**:
+**Time spent on project overall**:13.5 hrs

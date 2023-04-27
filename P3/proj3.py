@@ -212,6 +212,7 @@ print(f"----------------Task 4 runtime: {task4_time:.2f} seconds----------------
 
 #----------------------------------------
 #Task E1: 
+start_time = time.time()
 print(f"----------------Task E1 start ----------------")
 
 with open ('data/HIV1.fasta') as f:
@@ -253,3 +254,7 @@ tree = constructor.nj(dm)
 
 # Draw and show the tree using Phylo module
 Phylo.draw(tree)
+
+end_time = time.time()
+taskE1_time = end_time - start_time
+print(f"----------------Task E1 runtime: {taskE1_time:.2f} seconds----------------")
