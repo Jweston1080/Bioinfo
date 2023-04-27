@@ -66,9 +66,13 @@ Answer Task 5 here.
 Based on the tree generated using the 9-mers provided, it appears that the SARS genome is more closely related to the Middle East genome than to the Bat, Pangolin, or SARS-CoV-2 genomes (Li et al., 2020). This suggests that there may have been a closer evolutionary relationship between the SARS and Middle East viruses, and that the Bat and Pangolin viruses may have diverged earlier.
 This hypothesis is consistent with previous studies that have suggested that the SARS virus may have originated in bats and then jumped to an intermediate host (such as a civet) before infecting humans (Li et al., 2020; Xu et al., 2020). The Middle East virus, on the other hand, is believed to have originated in camels (Corman et al., 2014).
 In terms of the 9-mers themselves, there has been some research into the conservation and evolution of repetitive elements in viruses. For example, one study published in the journal Virology found that short repeated sequences (such as the 9-mers in question) were common in the genomes of many RNA viruses and may play a role in virus replication and evolution (Sanjuán et al., 2010).
-Overall, while the analysis of the 9-mers alone is unlikely to lead to major new insights into the evolution of viruses, it is a useful tool for understanding the relationships between different virus strains and for generating hypotheses about their evolutionary history. Further research using more comprehensive genomic data and phylogenetic analysis could shed more light on the evolution of repetitive elements in viruses and their role in virus replication and evolution.
+Overall, while the analysis of the 9-mers alone is unlikely to lead to major new insights into the evolution of viruses, it is a useful tool for understanding the relationships between different virus strains and for generating hypotheses about their evolutionary history.
 
 Answer Task E2 here if you choose to do it.
+
+---- 
+
+Task 5 and E2, further research using more comprehensive genomic data and phylogenetic analysis is needed to fully understand the evolution and function of these elements in viruses and could shed more light on the evolution of repetitive elements in viruses and their role in virus replication and evolution.
 
 
 Refrences: 
