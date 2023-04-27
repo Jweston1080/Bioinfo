@@ -3,36 +3,151 @@ title: "P3"
 author: "Calicia Perea, Raghda Kailany, Jason Weston"
 date: "2023-04-23"
 output: html_document
+editor_options: 
+  markdown: 
+    wrap: 72
 ---
+
 # **Abstract**
 
-
+In this project, task 1 covers the creation of a distance matrix from a
+fasta file which acts as the input for task 2, which builds a rooted
+phylogenetic tree from the given distance matrix. Task 3 implores the
+idea of using dynamic programming to reconstruct the ancestral sequences
+based on small parsimony by using the phylogenetic tree from task 2 as
+input and outputting the ancestral sequence at each node in the tree.
+Finally, task 4 and 5 deal with frequent 9-mer repeats in corornaviruses
+and the biological hypothesis attached to the phyogenetic tree of
+9-mers.
 
 # **Methods**
 
 Describe the data structures and algorithms that you have designed.
-Describe how to compile your code.
-Describe how to run your code to reproduce the results in your report.
+Describe how to compile your code. Describe how to run your code to
+reproduce the results in your report.
 
+Methods for Task 1: Data structures and algorithms designed: create an
+empty matrix, then using the 'hamming_distance()' function we calculate
+the hamming distance between every pair of sequences in a list called
+'sequences' and then fill the matrix with all of the hamming distance
+between sequences. The final matrix is written to a file called
+output_file.csv.
+
+Compilation:
+
+How to run code:
 
 # **Results**
-Visualize obtained trees and sequences in Task 4.
-Visualize obtained trees and sequences in Task E1 if you choose to do it.
-Report the runtime for Task 1 to 4.
 
-Task 1 runtime: 0.00 seconds
-Task 2 runtime: 0.50 seconds
+Visualize obtained trees and sequences in Task 4. Visualize obtained
+trees and sequences in Task E1 if you choose to do it. Report the run
+time for Task 1 to 4.
 
-
+Task 1 run time: 0.00 seconds Task 2 run time: 0.50 seconds
 
 # **Discussion**
-Answer Task 5 here.
-Answer Task E2 here if you choose to do it.
 
+Answer Task 5 here. Answer Task E2 here if you choose to do it.
 
-# **Distribution**
-For each team member, report the member’s contribution to coding, testing, or debugging as related to each task. Each member must do about an equal portion of work. A student with less programming background may do relatively less complex coding, but it is unacceptable that a member does no coding. E.g., Task 1 is a good piece for a non-computing background student.
-Each team member needs to describe the writing done, and must contribute to the writing of the final report.
-Each team member needs to report the time spent on the project. This is best done by creating a log of time and activities every time you work on the project.
+# **Distribution Of Work** 
 
+### Raghda: Main focus: Task 4 and Task 5
 
+[**Coding:**]{.underline}
+
+**Task 1**: 0% **Task 2**: 10% **Task 3**: 0% **Task 4**: 80%
+
+[**Testing:**]{.underline}
+
+**Task 1**: 0% **Task 2**: 15% **Task 3**: 0% **Task 4**: 45%
+
+[**Debugging**:]{.underline}
+
+**Task 1**: 0% **Task 2**: 30% **Task 3**: 20% **Task 4**: 80%
+
+[**Writing Done**:]{.underline}
+
+[**Time log:**]{.underline}
+
+**Task 1**:
+
+**Task 2**:
+
+**Task 3**:
+
+**Task 4**:
+
+**Task 5**:
+
+**Time spent on project overall**:
+
+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
+
+### Jason: Main focus: Task 1 and Task 3 
+
+[**Coding:**]{.underline}
+
+**Task 1**: 100% **Task 2**: 10% **Task 3**: 50% **Task 4**: 0%
+
+[**Testing:**]{.underline}
+
+**Task 1**: 80% **Task 2**: 15% **Task 3**: 50% **Task 4**: 10%
+
+[**Debugging:**]{.underline}
+
+**Task 1**: 100% **Task 2**: 0% **Task 3**: 20% **Task 4**: 0%
+
+[**Writing Done:**]{.underline}
+
+Designed abstract, organized distribution of work, described methods for
+task 1 and task 3.
+
+[**Time Log:**]{.underline}
+
+**Task 1**: 1 hour
+
+**Task 2**: 1 hour
+
+**Task 3**: 3 hours
+
+**Task 4**: 0 hours
+
+**Task 5**: 0 Hours
+
+**Report management**: 3 hours
+
+**Time spent on project overall**: 8 hours
+
+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
+
+### Calicia: Main Focus: Task 2 and Task 3 
+
+[**Coding:**]{.underline}
+
+**Task 1**: 0% **Task 2**: 80% **Task 3**: 50% **Task 4**: 20%
+
+[**Testing:**]{.underline}
+
+**Task 1**: 20% **Task 2**: 70% **Task 3**: 50% **Task 4**: 45%
+
+[**Debugging:**]{.underline}
+
+**Task 1**: 0% **Task 2**: 70% **Task 3**: 60% **Task 4**: 20%
+
+[**Writing Done:**]{.underline}
+
+[**Time Log:**]{.underline}
+
+**Task 1**:
+
+**Task 2**:
+
+**Task 3**:
+
+**Task 4**:
+
+**Task 5**:
+
+**Report management**:
+
+**Time spent on project overall**:

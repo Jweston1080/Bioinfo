@@ -1,3 +1,4 @@
+
 import time 
 
 #------------Task 1 ------------------#
@@ -8,11 +9,11 @@ def hamming_distance(seq1, seq2):
     assert len(seq1) == len(seq2)
     return sum(s1 != s2 for s1, s2 in zip(seq1, seq2))
 
-# read in fastq file
+# read in fasta file
 with open("input_file.fasta", "r") as f:
     seq_records = f.readlines()
 
-# create list of sequences from fastq file
+# create list of sequences from fasta file
 sequences = []
 current_seq = ""
 for line in seq_records:
@@ -63,14 +64,15 @@ task2_time = end_time - start_time
 print(f"Task 2 runtime: {task2_time:.2f} seconds")
 
 #------------Task 3 ------------------#
-#start_time = time.time()
+start_time = time.time()
 
 # read in tree from output file of Task 2
-# ... rest of Task 3 code ...
 
-#end_time = time.time()
-#task3_time = end_time - start_time
-#print(f"Task 3 runtime: {task3_time:.2f} seconds")
+# Read the input file
+
+end_time = time.time()
+task3_time = end_time - start_time
+print(f"Task 3 runtime: {task3_time:.2f} seconds")
 
 
 #------------Task 4 ------------------#
