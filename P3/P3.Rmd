@@ -317,11 +317,13 @@ working on the analysis of Task 5 and E2, and wrting the method part for Task 4.
 
 **Task 3**: 0 hours 
 
-**Task 4**: 4 hours 
+**Task 4**: 5 hours 
 
-**Task 5**: 3 hours 
+**Task 5**: 4 hours 
 
-**Time spent on project overall**: 7 
+**Report management**: 3 hours
+
+**Time spent on project overall**: 12
 
 \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
 
