@@ -36,25 +36,25 @@ def BetterFrequentWords(Word, k):
   return frequent_patterns[0][0]
 
 
-with open ('/content/COVID 2.fasta') as f:
+with open ('data/COVID2.fasta') as f:
  genome=f.read().strip()
 genome=genome[:-33] 
 
-with open ('/content/Bat.fasta') as f:
+with open ('data/Bat.fasta') as f:
  genomebat=f.read().strip()
 genomebat=genomebat[:-27] 
 
-with open ('/content/Middle east.fasta') as f:
+with open ('data/Middle_east.fasta') as f:
  genomeme=f.read().strip()
 
-with open ('/content/Pangolin.fasta') as f:
+with open ('data/Pangolin.fasta') as f:
  genomep=f.read().strip()
 
 
-with open ('/content/SARS.fasta') as f:
+with open ('data/SARS.fasta') as f:
  genomes=f.read().strip()
 
-with open ('/content/Severe acute.fasta') as f:
+with open ('data/Severe_acute.fasta') as f:
  genomesa=f.read().strip()
 genomesa=genomesa[:-33] 
 
@@ -100,17 +100,17 @@ Phylo.draw(tree)
 
 #----------------------------------------
 #Task E1: 
-with open ('/content/HIV1.fasta') as f:
+with open ('data/HIV1.fasta') as f:
  genomehiv=f.read().strip()
 
-with open ('/content/Hepatitis B.fasta') as f:
+with open ('data/Hepatitis_B.fasta') as f:
  genomehep=f.read().strip()
 
-with open ('/content/adenovirus.fasta') as f:
+with open ('data/adenovirus.fasta') as f:
  genomead=f.read().strip()
 
 
-with open('/content/Ebola.fasta') as f:
+with open('data/Ebola.fasta') as f:
     genomeb = f.read().strip()
 
 # Print the most frequent 9-mers in each genome sequence
