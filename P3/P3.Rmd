@@ -170,8 +170,6 @@ and function of these elements in viruses and could shed more light on
 the evolution of repetitive elements in viruses and their role in virus
 replication and evolution.
 
-Refrences: 
-
 Reference:
 Cui, J., Li, F., & Shi, Z. L. (2019). Origin and evolution of pathogenic coronaviruses. Nature Reviews Microbiology, 17(3), 181-192.
 
