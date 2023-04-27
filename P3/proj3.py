@@ -81,10 +81,35 @@ print(f"Task 2 runtime: {task2_time:.2f} seconds")
 
 #------------Task 3 ------------------#
 #start_time = time.time()
+records = AlignIO.read("input_file.fasta", "fasta")
 
+# Create a MultipleSeqAlignment object
+alignment = MultipleSeqAlignment(records)
 
+# Calculate pairwise distances using the identity metric
+calculator = DistanceCalculator('identity')
+dm = calculator.get_distance(alignment)
 
+# Construct the phylogenetic tree
+constructor = DistanceTreeConstructor()
+tree = constructor.nj(dm)
 
+# Get the ancestral sequences at each node using Phylo module
+for clade in tree.find_clades(order='postorder'):
+    if not clade.is_terminal():
+        ancestral_seq = SeqRecord(Seq(''))
+        for position in range(len(alignment[0])):
+            # get the most common nucleotide at this position
+            most_common = max(alignment[:, position], key=alignment[:, position].count)
+            ancestral_seq.seq += Seq(most_common)
+        clade.confidence = None
+        clade.name = ''
+        clade.sequence = ancestral_seq
+        print(f"Node {clade.name}: {ancestral_seq.seq}")
+        
+
+# Draw and show the tree with the ancestral sequences
+Phylo.draw(tree)
 # Read the input file
 '''
 end_time = time.time()
