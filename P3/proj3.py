@@ -96,25 +96,17 @@ tree = constructor.nj(dm)
 
 # Get the ancestral sequences at each node using Phylo module
 for clade in tree.find_clades(order='postorder'):
-    if not clade.is_terminal():
-        ancestral_seq = SeqRecord(Seq(''))
-        for position in range(len(alignment[0])):
-            # get the most common nucleotide at this position
-            most_common = max(alignment[:, position], key=alignment[:, position].count)
-            ancestral_seq.seq += Seq(most_common)
-        clade.confidence = None
-        clade.name = ''
-        clade.sequence = ancestral_seq
-        print(f"Node {clade.name}: {ancestral_seq.seq}")
-        
-
-# Draw and show the tree with the ancestral sequences
-Phylo.draw(tree)
-# Read the input file
-
-end_time = time.time()
-task3_time = end_time - start_time
-print(f"Task 3 runtime: {task3_time:.2f} seconds")
+    if clade.is_terminal():
+        seq_record = next((record for record in records if record.id == clade.name), None)
+        clade.sequence = seq_record.seq
+    else:
+        seqs = [child.sequence for child in clade.clades]
+        combined_seq = SeqRecord(Seq(''))
+        for i in range(len(seqs[0])):
+            most_common = max([seq[i] for seq in seqs], key=[seq[i] for seq in seqs].count)
+            combined_seq.seq += Seq(most_common)
+        clade.sequence = combined_seq.seq
+    print(f"Node {clade.name}: {clade.sequence}")
 
 
 #------------Task 4 ------------------#
